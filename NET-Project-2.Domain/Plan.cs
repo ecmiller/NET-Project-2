@@ -8,7 +8,7 @@ namespace NET_Project_2.Domain
 {
     public class Plan
     {
-        public int Id { get; set; }
+        public int PlanId { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }
         public int DeviceLimit { get; set; }
