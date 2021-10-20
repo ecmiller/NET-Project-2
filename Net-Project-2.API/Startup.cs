@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Net_Project_2.Data;
 
 namespace Net_Project_2.API
 {
@@ -24,8 +26,24 @@ namespace Net_Project_2.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Set up CORS
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.WithOrigins("*")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+                });
+            });
 
             services.AddControllers();
+
+            // Sets up context, connection to server, etc.
+            services.AddDbContext<Project2Context>(opt =>
+            opt.UseSqlServer(Configuration.GetConnectionString("MiniProjectConnex"))
+            .EnableSensitiveDataLogging()
+            .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
