@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
+using NET_Project_2.Domain;
 
 namespace Net_Project_2.Data
 {

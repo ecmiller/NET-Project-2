@@ -41,7 +41,7 @@ namespace Net_Project_2.API
 
             // Sets up context, connection to server, etc.
             services.AddDbContext<Project2Context>(opt =>
-            opt.UseSqlServer(Configuration.GetConnectionString("MiniProjectConnex"))
+            opt.UseSqlServer(Configuration.GetConnectionString("Project2Connex"))
             .EnableSensitiveDataLogging()
             .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
         }
