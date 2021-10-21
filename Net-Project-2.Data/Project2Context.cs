@@ -13,5 +13,18 @@ namespace Net_Project_2.Data
         public DbSet<PhoneNumber> PhoneNumbers { get; set; }
 
         public Project2Context(DbContextOptions options) : base(options) { }
+
+        //Fluent API - we may need this later
+       /*
+        * protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>()
+                .HasMany(p => p.Plans)
+                .WithMany(u => u.Users);
+
+            modelBuilder.Entity<Device>().Property(d => d.PhoneNumber)
+                .IsRequired(false);
+        }
+       */
     }
 }

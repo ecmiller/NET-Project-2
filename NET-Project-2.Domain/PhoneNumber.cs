@@ -8,8 +8,8 @@ namespace NET_Project_2.Domain
 {
     public class PhoneNumber
     {
-        public int PhoneNumberId { get; set; }
-        public int PhoneNumberVal { get; set; }
+        public int Id { get; set; }
+        public string PhoneNumberVal { get; set; }
         public User User { get; set; }
         public int UserId { get; set; }
     }

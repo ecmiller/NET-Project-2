@@ -2,7 +2,7 @@
 
 namespace Net_Project_2.Data.Migrations
 {
-    public partial class InitalCommit : Migration
+    public partial class EricLocalMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -40,14 +40,14 @@ namespace Net_Project_2.Data.Migrations
                 name: "PhoneNumbers",
                 columns: table => new
                 {
-                    PhoneNumberId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PhoneNumberVal = table.Column<int>(type: "int", nullable: false),
+                    PhoneNumberVal = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PhoneNumbers", x => x.PhoneNumberId);
+                    table.PrimaryKey("PK_PhoneNumbers", x => x.Id);
                     table.ForeignKey(
                         name: "FK_PhoneNumbers_Users_UserId",
                         column: x => x.UserId,
@@ -89,7 +89,7 @@ namespace Net_Project_2.Data.Migrations
                     Brand = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Model = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhoneNumberId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: true)
+                    UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -98,14 +98,14 @@ namespace Net_Project_2.Data.Migrations
                         name: "FK_Devices_PhoneNumbers_PhoneNumberId",
                         column: x => x.PhoneNumberId,
                         principalTable: "PhoneNumbers",
-                        principalColumn: "PhoneNumberId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Devices_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateIndex(
