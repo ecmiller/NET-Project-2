@@ -14,22 +14,18 @@ namespace Net_Project_2.Data
 
         public Project2Context(DbContextOptions options) : base(options) { }
 
-
         //Fluent API - we may need this later
-       /* protected override void OnModelCreating(ModelBuilder modelBuilder)
+       /*
+        * protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
-           
-            
             modelBuilder.Entity<User>()
-                        .HasMany(u => u.Plan)
-                        .WithMany(p => p.Users)
-                        .UsingEntity<UserPlan>(up => up.HasOne<Plan>().WithMany(),
-                                                 up => up.HasOne<User>().WithMany())
-                        .Property(up => up.CreatedAt)
-                        .HasDefaultValue(1);
+                .HasMany(p => p.Plans)
+                .WithMany(u => u.Users);
 
-        }*/
+            modelBuilder.Entity<Device>().Property(d => d.PhoneNumber)
+                .IsRequired(false);
+        }
+       */
     }
 
 

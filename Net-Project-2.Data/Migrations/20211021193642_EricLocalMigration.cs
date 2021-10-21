@@ -2,7 +2,7 @@
 
 namespace Net_Project_2.Data.Migrations
 {
-    public partial class init : Migration
+    public partial class EricLocalMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -10,7 +10,7 @@ namespace Net_Project_2.Data.Migrations
                 name: "Plans",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    PlanId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Price = table.Column<double>(type: "float", nullable: false),
@@ -19,21 +19,21 @@ namespace Net_Project_2.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Plans", x => x.Id);
+                    table.PrimaryKey("PK_Plans", x => x.PlanId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.UserId);
                 });
 
             migrationBuilder.CreateTable(
@@ -42,7 +42,7 @@ namespace Net_Project_2.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PhoneNumberVal = table.Column<int>(type: "int", nullable: false),
+                    PhoneNumberVal = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -52,7 +52,7 @@ namespace Net_Project_2.Data.Migrations
                         name: "FK_PhoneNumbers_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -60,23 +60,23 @@ namespace Net_Project_2.Data.Migrations
                 name: "PlanUser",
                 columns: table => new
                 {
-                    PlanId = table.Column<int>(type: "int", nullable: false),
-                    UsersId = table.Column<int>(type: "int", nullable: false)
+                    PlansPlanId = table.Column<int>(type: "int", nullable: false),
+                    UsersUserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PlanUser", x => new { x.PlanId, x.UsersId });
+                    table.PrimaryKey("PK_PlanUser", x => new { x.PlansPlanId, x.UsersUserId });
                     table.ForeignKey(
-                        name: "FK_PlanUser_Plans_PlanId",
-                        column: x => x.PlanId,
+                        name: "FK_PlanUser_Plans_PlansPlanId",
+                        column: x => x.PlansPlanId,
                         principalTable: "Plans",
-                        principalColumn: "Id",
+                        principalColumn: "PlanId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PlanUser_Users_UsersId",
-                        column: x => x.UsersId,
+                        name: "FK_PlanUser_Users_UsersUserId",
+                        column: x => x.UsersUserId,
                         principalTable: "Users",
-                        principalColumn: "Id",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -84,7 +84,7 @@ namespace Net_Project_2.Data.Migrations
                 name: "Devices",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    DeviceId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Brand = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Model = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -93,7 +93,7 @@ namespace Net_Project_2.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Devices", x => x.Id);
+                    table.PrimaryKey("PK_Devices", x => x.DeviceId);
                     table.ForeignKey(
                         name: "FK_Devices_PhoneNumbers_PhoneNumberId",
                         column: x => x.PhoneNumberId,
@@ -104,8 +104,8 @@ namespace Net_Project_2.Data.Migrations
                         name: "FK_Devices_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateIndex(
@@ -124,9 +124,9 @@ namespace Net_Project_2.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PlanUser_UsersId",
+                name: "IX_PlanUser_UsersUserId",
                 table: "PlanUser",
-                column: "UsersId");
+                column: "UsersUserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

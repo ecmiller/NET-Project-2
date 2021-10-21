@@ -9,8 +9,8 @@ using Net_Project_2.Data;
 namespace Net_Project_2.Data.Migrations
 {
     [DbContext(typeof(Project2Context))]
-    [Migration("20211020202853_init")]
-    partial class init
+    [Migration("20211021193642_EricLocalMigration")]
+    partial class EricLocalMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,7 +22,7 @@ namespace Net_Project_2.Data.Migrations
 
             modelBuilder.Entity("NET_Project_2.Domain.Device", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("DeviceId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -39,7 +39,7 @@ namespace Net_Project_2.Data.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("DeviceId");
 
                     b.HasIndex("PhoneNumberId");
 
@@ -55,8 +55,8 @@ namespace Net_Project_2.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("PhoneNumberVal")
-                        .HasColumnType("int");
+                    b.Property<string>("PhoneNumberVal")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -70,7 +70,7 @@ namespace Net_Project_2.Data.Migrations
 
             modelBuilder.Entity("NET_Project_2.Domain.Plan", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("PlanId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -87,14 +87,14 @@ namespace Net_Project_2.Data.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.HasKey("Id");
+                    b.HasKey("PlanId");
 
                     b.ToTable("Plans");
                 });
 
             modelBuilder.Entity("NET_Project_2.Domain.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -105,22 +105,22 @@ namespace Net_Project_2.Data.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("UserId");
 
                     b.ToTable("Users");
                 });
 
             modelBuilder.Entity("PlanUser", b =>
                 {
-                    b.Property<int>("PlanId")
+                    b.Property<int>("PlansPlanId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UsersId")
+                    b.Property<int>("UsersUserId")
                         .HasColumnType("int");
 
-                    b.HasKey("PlanId", "UsersId");
+                    b.HasKey("PlansPlanId", "UsersUserId");
 
-                    b.HasIndex("UsersId");
+                    b.HasIndex("UsersUserId");
 
                     b.ToTable("PlanUser");
                 });
@@ -159,13 +159,13 @@ namespace Net_Project_2.Data.Migrations
                 {
                     b.HasOne("NET_Project_2.Domain.Plan", null)
                         .WithMany()
-                        .HasForeignKey("PlanId")
+                        .HasForeignKey("PlansPlanId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("NET_Project_2.Domain.User", null)
                         .WithMany()
-                        .HasForeignKey("UsersId")
+                        .HasForeignKey("UsersUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -8,7 +8,7 @@ namespace NET_Project_2.Domain
 {
     public class Device
     {
-        public int Id { get; set; }
+        public int DeviceId { get; set; }
         public string Brand { get; set; }
         public string Model { get; set; }
         public PhoneNumber PhoneNumber { get; set; }

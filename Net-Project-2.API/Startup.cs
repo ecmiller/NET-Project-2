@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Azure.Services.AppAuthentication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -41,7 +42,8 @@ namespace Net_Project_2.API
 
             // Sets up context, connection to server, etc.
             services.AddDbContext<Project2Context>(opt =>
-            opt.EnableSensitiveDataLogging()
+            opt.UseSqlServer(Configuration.GetConnectionString("Project2Connex")) //TODO
+            .EnableSensitiveDataLogging()
             .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
         }
 
