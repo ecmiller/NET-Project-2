@@ -36,13 +36,12 @@ namespace Net_Project_2.API
                     .AllowAnyMethod();
                 });
             });
-
+            //...
             services.AddControllers();
 
             // Sets up context, connection to server, etc.
             services.AddDbContext<Project2Context>(opt =>
-            opt.UseSqlServer(Configuration.GetConnectionString("Project2Connex"))
-            .EnableSensitiveDataLogging()
+            opt.EnableSensitiveDataLogging()
             .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
         }
 
