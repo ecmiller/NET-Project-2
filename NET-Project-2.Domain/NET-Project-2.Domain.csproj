@@ -12,8 +12,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\NET-Project-2\NET-Project-2.csproj" />
-  </ItemGroup>
-
 </Project>
